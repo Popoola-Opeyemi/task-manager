@@ -1,0 +1,139 @@
+
+###
+
+# @name CreateUser
+POST http://127.0.0.1:3000/users
+Content-Type: application/json;charset=UTF-8
+
+{
+  "name": "John DOe",
+  "age":20,
+  "email":"frodo@gmail.com",
+  "password":"john1018mna"
+}
+
+
+###
+
+# @name secondUser
+POST http://127.0.0.1:3000/users
+Content-Type: application/json;charset=UTF-8
+
+{
+  "name": "Mike Pence",
+  "age":30,
+  "email":"milk@gmail.com",
+  "password":"mikehell9011"
+}
+
+###
+
+# @name LoginUser
+POST http://127.0.0.1:3000/users/login
+Content-Type: application/json;charset=UTF-8
+
+{
+  "email":"frodo@gmail.com",
+  "password":"john1018mna"
+}
+###
+
+# @name LoginUser2
+POST http://127.0.0.1:3000/users/login
+Content-Type: application/json;charset=UTF-8
+
+{
+  "email":"milk@gmail.com",
+  "password":"mikehell9011"
+}
+
+
+@Authorization = {{LoginUser.response.body.token}}
+@Authorization2 = {{LoginUser2.response.body.token}} 
+
+###
+POST  http://127.0.0.1:3000/users/logout HTTP/1.1
+Authorization: Bearer:{{Authorization}}
+
+###
+POST  http://127.0.0.1:3000/users/logoutall HTTP/1.1
+Authorization: Bearer:{{Authorization}}
+
+###
+GET http://127.0.0.1:3000/users/me HTTP/1.1
+Authorization: Bearer:{{Authorization}}
+
+
+###
+GET http://127.0.0.1:3000/users HTTP/1.1
+Authorization: Bearer:{{Authorization}}
+
+###
+GET http://127.0.0.1:3000/users/5e70486108db6529187bea0e HTTP/1.1
+
+###
+PATCH    http://127.0.0.1:3000/users/me
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer:{{Authorization}}
+
+
+{ 
+  "name": "Andrew",
+  "age":30,
+  "password":"john1018mna"
+}
+
+
+###
+PATCH    http://127.0.0.1:3000/users/5e7043ad5bf8a90dcc34724e
+Content-Type: application/json;charset=UTF-8
+
+{ 
+  "name": "Andrew",
+  "password":"mimisi190"
+}
+###
+DELETE  http://127.0.0.1:3000/users/me HTTP/1.1
+Authorization: Bearer:{{Authorization}}
+
+###
+DELETE  http://127.0.0.1:3000/users/5e69aaf8a2135c376007fa6b HTTP/1.1
+
+###
+POST http://127.0.0.1:3000/users 
+Content-Type: application/json;charset=UTF-8
+
+
+###
+GET http://127.0.0.1:3000/task?completed=false&limit=5&skip=1&sortBy=createdAt:asc HTTP/1.1
+Authorization: Bearer:{{Authorization2}}
+
+
+###
+GET http://127.0.0.1:3000/task/5e71934e979372411c34f366 HTTP/1.1
+Authorization: Bearer:{{Authorization2}}
+
+###
+POST http://127.0.0.1:3000/task
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer:{{Authorization2}}
+
+
+{
+  "description": "Install windows",
+  "completed":"false"
+}
+
+###
+PATCH    http://127.0.0.1:3000/task/5e7183b47b4dd154dcad0978
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer:{{Authorization}}
+
+
+{ 
+  "description": "Install Romero",
+  "completed":"false"
+}
+###
+DELETE  http://127.0.0.1:3000/task/5e719336979372411c34f364 HTTP/1.1
+Authorization: Bearer:{{Authorization2}}
